@@ -1,5 +1,42 @@
 /**rock paper scissors console game */
 
+//const rockBtn = document.getElementById('rock');
+const buttons = document.querySelectorAll('button');
+const output = document.querySelector('.message');
+const scoreboard = document.querySelector('.score');
+const playerScore = document.getElementById('playerScore');
+const computerScore = document.getElementById('computerScore');
+
+function playerChoice(e){
+    let choice = e.target.id;
+    console.log(choice + " was chosen");
+    let computerChoice = getComputerChoice();
+    let outcome = playRound(choice,computerChoice);
+    console.log(outcome);
+    output.innerText=outcome;
+    if(playerWon(outcome)){
+        playerScore.innerText = (playerScore.innerText != "" ? parseInt(playerScore.innerText) : 0) +1;
+    }else{
+        computerScore.innerText = (computerScore.innerText != "" ? parseInt(computerScore.innerText) : 0) +1;  
+    }
+    let sum = parseInt(playerScore.innerText) + parseInt(computerScore.innerText);
+    if (sum>=5){
+        //game over
+        let winner = playerScore > computerScore ? "player" : "computer";
+        output.innerText = "game over, " + winner + " wins!";
+        buttons.forEach(btn =>{
+            btn.setAttribute('disabled', 'disabled');
+        });
+    }
+
+
+}
+
+
+buttons.forEach(btn =>{
+    btn.addEventListener('click', playerChoice);
+});
+
 
 /**
  * Randomly choose one of three options 
@@ -60,7 +97,7 @@ function playRound(playerSelection, computerSelection){
 
 /**
  * Game loop for 5 rounds
- */
+ *
 function game(){
     console.log("starting game...");
     let playerScore=0;
@@ -83,7 +120,7 @@ function game(){
         console.log(`You lost, score: ${playerScore} out of 5`);
     }
 }
-
+*/
 
 /**
  * check the score of a round
